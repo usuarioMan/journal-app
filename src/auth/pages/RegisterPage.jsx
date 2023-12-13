@@ -1,11 +1,4 @@
-import {
-  Grid,
-  Typography,
-  TextField,
-  Button,
-  Link as MLink,
-} from "@mui/material";
-import { Google } from "@mui/icons-material";
+import { Grid, TextField, Button, Link as MLink } from "@mui/material";
 import { Link } from "react-router-dom";
 import { AuthLayout } from "../layout";
 export const RegisterPage = () => {
@@ -46,7 +39,7 @@ export const RegisterPage = () => {
                 {" "}
                 {/* Ajusté el tamaño en pantallas medianas */}
                 <Button variant="contained" fullWidth>
-                  Login
+                  Register
                 </Button>
               </Grid>
             </Grid>
