@@ -1,5 +1,6 @@
 import {
   loginWithEmailAndPassword,
+  logoutFirebase,
   registerWithEmailPassowrd,
   signInWhitGoogle,
 } from "../../firebase/providers";
@@ -48,5 +49,13 @@ export const thunkSingInWithEmailPassword = ({ email, password }) => {
     ok
       ? dispatch(login({ uid, email, displayName, photoURL }))
       : dispatch(logout({ errorMessage }));
+  };
+};
+
+export const thunkLogOut = () => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+    await logoutFirebase();
+    dispatch(logout({}));
   };
 };
