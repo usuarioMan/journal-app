@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   thunkChekingAuthentication,
   thunkGoogleSignIn,
+  thunkSingInWithEmailPassword,
 } from "../../store/auth";
 import {
   Grid,
@@ -10,6 +11,7 @@ import {
   TextField,
   Button,
   Link as MLink,
+  Alert,
 } from "@mui/material";
 import { Google } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -18,7 +20,7 @@ import { useForm } from "../../hooks";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
-  const { status } = useSelector((state) => state.auth);
+  const { status, errorMessage } = useSelector((state) => state.auth);
   const { email, password, onInputChange } = useForm({
     email: "",
     password: "",
@@ -29,6 +31,7 @@ export const LoginPage = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(thunkChekingAuthentication());
+    dispatch(thunkSingInWithEmailPassword({ email, password }));
   };
 
   const onGoogleSignIn = () => {
@@ -63,11 +66,21 @@ export const LoginPage = () => {
                 onChange={onInputChange}
               />
             </Grid>
-
+            <Grid
+              container
+              direction={"row"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexGrow={true}
+              spacing={2}
+              sx={{ mt: 2 }}
+            >
+              <Grid item xs={12} sm={12} display={!errorMessage ? "none" : ""}>
+                <Alert severity="error">{errorMessage}</Alert>
+              </Grid>
+            </Grid>
             <Grid container spacing={2} sx={{ mt: 2 }}>
               <Grid item xs={12} sm={6}>
-                {" "}
-                {/* Ajusté el tamaño en pantallas medianas */}
                 <Button
                   variant="contained"
                   fullWidth

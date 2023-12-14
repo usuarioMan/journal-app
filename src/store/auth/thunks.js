@@ -1,9 +1,10 @@
 import {
+  loginWithEmailAndPassword,
   registerWithEmailPassowrd,
   signInWhitGoogle,
 } from "../../firebase/providers";
 import { checkingCredentials, login, logout } from "./authSlice";
-export const thunkChekingAuthentication = (email, password) => {
+export const thunkChekingAuthentication = () => {
   return async (dispatch) => {
     dispatch(checkingCredentials());
   };
@@ -31,6 +32,18 @@ export const thunkCreatingUserWithEmailPassword = ({
         password,
       }
     );
+
+    ok
+      ? dispatch(login({ uid, email, displayName, photoURL, errorMessage }))
+      : dispatch(logout({ errorMessage }));
+  };
+};
+
+export const thunkSingInWithEmailPassword = ({ email, password }) => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+    const { ok, uid, photoURL, displayName, errorMessage } =
+      await loginWithEmailAndPassword({ email, password });
 
     ok
       ? dispatch(login({ uid, email, displayName, photoURL }))
