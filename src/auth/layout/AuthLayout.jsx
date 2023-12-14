@@ -1,10 +1,4 @@
-import {
-  Grid,
-  Typography,
-  TextField,
-  Button,
-  Link as MLink,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 export const AuthLayout = ({ children, title = "" }) => {
   return (

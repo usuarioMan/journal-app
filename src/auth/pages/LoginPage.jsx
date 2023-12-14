@@ -30,7 +30,6 @@ export const LoginPage = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(thunkChekingAuthentication());
     dispatch(thunkSingInWithEmailPassword({ email, password }));
   };
 
