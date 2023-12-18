@@ -5,7 +5,7 @@ import {
   setActiveNote,
   creatingNewNote,
   setNotes,
-} from "./authSlice";
+} from "./journalSlice";
 import { loadNotes } from "../../helpers/loadNotes";
 export const thunkStartNewNote = () => {
   return async (dispatch, getState) => {
