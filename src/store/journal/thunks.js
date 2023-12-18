@@ -5,6 +5,8 @@ import {
   setActiveNote,
   creatingNewNote,
   setNotes,
+  setSaving,
+  updateNote,
 } from "./journalSlice";
 import { loadNotes } from "../../helpers/loadNotes";
 export const thunkStartNewNote = () => {
@@ -36,5 +38,19 @@ export const thunkStartLoadingNotes = () => {
     if (!uid) throw new Error("El UID del usuario no existe!");
     const notes = await loadNotes(uid);
     dispatch(setNotes(notes));
+  };
+};
+
+export const thunkStartSaveNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(setSaving());
+    const { uid } = getState().auth;
+    const { active: note } = getState().journal;
+
+    const noteToFirestore = { ...note };
+    delete noteToFirestore.id;
+    const docRef = doc(firebaseDB, `${uid}/journal/notes/${note.id}`);
+    await setDoc(docRef, noteToFirestore, { merge: true });
+    dispatch(updateNote(note));
   };
 };
