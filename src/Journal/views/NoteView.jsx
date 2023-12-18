@@ -6,7 +6,11 @@ import "sweetalert2/dist/sweetalert2.css";
 import { Button, Grid, IconButton, TextField, Typography } from "@mui/material";
 import { ImageGallery } from "../components";
 import { useForm } from "../../hooks/useForm";
-import { setActiveNote, thunkStartSaveNote } from "../../store";
+import {
+  setActiveNote,
+  thunkStartSaveNote,
+  thunkStartUploadingFiles,
+} from "../../store";
 export const NoteView = () => {
   const dispatch = useDispatch();
   const {
@@ -29,7 +33,7 @@ export const NoteView = () => {
 
   const onFileInputChange = ({ target }) => {
     if (target.files === 0) return;
-    // dispatch(thunkStartUploadingFiles(target.files));
+    dispatch(thunkStartUploadingFiles(target.files));
   };
 
   useEffect(() => {

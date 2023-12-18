@@ -9,6 +9,7 @@ import {
   updateNote,
 } from "./journalSlice";
 import { loadNotes } from "../../helpers/loadNotes";
+import { fileUpload } from "../../helpers/fileUpload";
 export const thunkStartNewNote = () => {
   return async (dispatch, getState) => {
     dispatch(creatingNewNote());
@@ -52,5 +53,12 @@ export const thunkStartSaveNote = () => {
     const docRef = doc(firebaseDB, `${uid}/journal/notes/${note.id}`);
     await setDoc(docRef, noteToFirestore, { merge: true });
     dispatch(updateNote(note));
+  };
+};
+
+export const thunkStartUploadingFiles = (files = []) => {
+  return async (dispatch) => {
+    dispatch(setSaving());
+    await fileUpload(files[0]);
   };
 };
