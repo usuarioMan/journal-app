@@ -26,6 +26,7 @@ export const journalSlice = createSlice({
 
     setActiveNote: (state, action) => {
       state.active = action.payload;
+      state.messageSaved = "";
     },
 
     setNotes: (state, action) => {
@@ -34,7 +35,7 @@ export const journalSlice = createSlice({
 
     setSaving: (state) => {
       state.isSaving = true;
-      //TODO: error message.
+      state.messageSaved = "";
     },
 
     updateNote: (state, action) => {
@@ -43,6 +44,7 @@ export const journalSlice = createSlice({
         if (note.id !== action.payload.id) return note;
         return action.payload;
       });
+      state.messageSaved = `${action.payload.title}, successfully saved`;
     },
 
     deleteNoteById: (state, action) => {},
