@@ -4,6 +4,7 @@ import {
   registerWithEmailPassowrd,
   signInWhitGoogle,
 } from "../../firebase/providers";
+import { clearNotesOnLogout } from "../journal/journalSlice";
 import { checkingCredentials, login, logout } from "./authSlice";
 export const thunkChekingAuthentication = () => {
   return async (dispatch) => {
@@ -56,6 +57,7 @@ export const thunkLogOut = () => {
   return async (dispatch) => {
     dispatch(checkingCredentials());
     await logoutFirebase();
+    dispatch(clearNotesOnLogout());
     dispatch(logout({}));
   };
 };
