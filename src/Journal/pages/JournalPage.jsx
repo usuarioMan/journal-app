@@ -7,7 +7,7 @@ import { thunkStartNewNote } from "../../store";
 export const JournalPage = () => {
   const { isSaving } = useSelector((state) => state.journal);
   const { active } = useSelector((state) => state.journal);
-  const isActive = !!active.id;
+  const isActive = Boolean(active && active.id);
   const dispatch = useDispatch();
   const onClickNewNote = () => {
     dispatch(thunkStartNewNote());
@@ -17,7 +17,7 @@ export const JournalPage = () => {
       <JournalLayout>
         {isActive ? <NoteView /> : <NothingSelectedView />}
         <IconButton
-          onClick={isSaving ? null : onClickNewNote}
+          onClick={isSaving ? undefined : onClickNewNote}
           size="large"
           sx={{
             color: "white",
