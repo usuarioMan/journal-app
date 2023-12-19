@@ -72,7 +72,7 @@ export const NoteView = () => {
 
         <IconButton
           color="primary"
-          disable={isSaving}
+          disabled={isSaving}
           onClick={() => fileInputRef.current.click()}
         >
           <UploadOutlined />

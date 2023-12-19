@@ -7,6 +7,7 @@ import {
   setNotes,
   setSaving,
   updateNote,
+  setPhotoToActiveNote,
 } from "./journalSlice";
 import { loadNotes } from "../../helpers/loadNotes";
 import { fileUpload } from "../../helpers/fileUpload";
@@ -59,6 +60,11 @@ export const thunkStartSaveNote = () => {
 export const thunkStartUploadingFiles = (files = []) => {
   return async (dispatch) => {
     dispatch(setSaving());
-    await fileUpload(files[0]);
+    const fileUploadPromisses = [];
+    for (const file of files) {
+      fileUploadPromisses.push(fileUpload(file));
+    }
+    const photosUrls = await Promise.all(fileUploadPromisses);
+    dispatch(setPhotoToActiveNote(photosUrls));
   };
 };

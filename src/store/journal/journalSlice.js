@@ -48,6 +48,11 @@ export const journalSlice = createSlice({
     },
 
     deleteNoteById: (state, action) => {},
+
+    setPhotoToActiveNote: (state, action) => {
+      state.active.imageUrl = [...state.active.imageUrl, ...action.payload];
+      state.isSaving = false;
+    },
   },
 });
 // Action creators are generated for each case reducer function
@@ -59,4 +64,5 @@ export const {
   setSaving,
   updateNote,
   deleteNoteById,
+  setPhotoToActiveNote,
 } = journalSlice.actions;
